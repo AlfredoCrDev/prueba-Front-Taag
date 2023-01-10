@@ -1,5 +1,5 @@
 // Funcion para menu Hamburguesa
-(function() {
+(function () {
   if (document.querySelector("#top-nav-toggle")) {
     var navToggle = document.querySelector("#top-nav-toggle");
 
@@ -33,66 +33,63 @@
 // Arreglo de Objeto del Menu
 const menuIndex = [
   {
-	Id: 1,
-  titulo: "Inicio",
-href: "home.php"
+    Id: 1,
+    titulo: "Inicio",
+    href: "home.php",
   },
   {
-	Id:7,
-titulo: "Contacto",
-href: "contact.php"
+    Id: 7,
+    titulo: "Contacto",
+    href: "contact.php",
   },
   {
-	Id:6,
-titulo: "Empresa",
-href: "about.php"
+    Id: 6,
+    titulo: "Empresa",
+    href: "about.php",
   },
   {
-	Id:2,
-titulo: "Laboratorio",
-href: "laboratory.php"
+    Id: 2,
+    titulo: "Laboratorio",
+    href: "laboratory.php",
   },
   {
-	Id:4,
-titulo: "Alimentos",
-href: "foods.php",
-subitme: []
+    Id: 4,
+    titulo: "Alimentos",
+    href: "foods.php",
+    subitme: [],
   },
   {
-	Id:5,
-titulo: "Diagnóstico Clínico",
-href: "clinical-diagnostic.php"
+    Id: 5,
+    titulo: "Diagnóstico Clínico",
+    href: "clinical-diagnostic.php",
   },
   {
-	Id:2,
-titulo: "Productos",
-href: "products.php"
+    Id: 2,
+    titulo: "Productos",
+    href: "products.html",
   },
   {
-	Id:3,
-titulo: "Software",
-href: "software.php"
-  }
-]
+    Id: 3,
+    titulo: "Software",
+    href: "software.php",
+  },
+];
 // Fin Arrelgo de Objeto del Menu
 
 // Ordenar arreglo para Menu
-const menuOrder = menuIndex.sort(((a, b) => a.Id - b.Id));
+const menuOrder = menuIndex.sort((a, b) => a.Id - b.Id);
 const listaMenu = document.querySelector(".top-bar__nav-list");
 const li = document.createElement("li");
 
-menuOrder.map((titulo) =>{
+menuOrder.map((titulo) => {
   const elem = document.createElement("a");
-  elem.appendChild(
-    document.createTextNode(`${titulo.titulo}`)
-  );
+  elem.setAttribute("href", `${titulo.href}`);
+  elem.appendChild(document.createTextNode(`${titulo.titulo}`));
   li.appendChild(elem);
 });
 
 listaMenu.appendChild(li);
 // Fin ordenar arreglo para Menu
-
-
 
 const selectedEnglish = document.getElementById("eng");
 const selectedEspanol = document.getElementById("esp");
@@ -145,7 +142,7 @@ selectedEnglish.addEventListener("click", () => {
   showEnglishText();
   localStorage.setItem("languageActive", "english");
 });
- 
+
 //SPANISH-> ALL OTHERS SWITCHED OFF
 selectedEspanol.addEventListener("click", () => {
   selectedEspanol.classList.add("langSelected");
@@ -157,7 +154,6 @@ selectedEspanol.addEventListener("click", () => {
 
 //LOCAL STORAGE ADDON
 switch (localStorage.getItem("languageActive")) {
- 
   case "english":
     selectedEnglish.classList.add("langSelected");
     showEnglishText();
@@ -170,7 +166,7 @@ switch (localStorage.getItem("languageActive")) {
 
   default:
     //default ENGLISH text shown, all others disabled
-//default -> no local storage exists
+    //default -> no local storage exists
     selectedEnglish.classList.add("langSelected");
     showEnglishText();
 }
@@ -183,21 +179,54 @@ switch (localStorage.getItem("languageActive")) {
 // }
 
 // Guardar Datos SessionStorage
-const miFunc = () =>{
+const miFunc = () => {
   const nom = document.querySelector(".nameInput").value;
-  console.log(nom)
   const email = document.querySelector(".emailInput").value;
-  const comp = document.querySelector(".companyInput").value;
   const phon = document.querySelector(".phoneInput").value;
-  const txta = document.querySelector(".textInput").value;
-  
-  sessionStorage.setItem("Name", nom)
-  sessionStorage.setItem("Email", email)
-  sessionStorage.setItem("Company", comp)
-  sessionStorage.setItem("Phone", phon)
-  sessionStorage.setItem("Message", txta)
 
-}
+  sessionStorage.setItem("Name", nom);
+  sessionStorage.setItem("Email", email);
+  sessionStorage.setItem("Phone", phon);
+};
 
+// VALIDACION DE FOMRULARIO
+const form = document.querySelector(".formcontact");
+const nom = document.querySelector(".nameInput");
+const email = document.querySelector(".emailInput");
+const phon = document.querySelector(".phoneInput");
+const parrafo = document.querySelector(".parrafo");
 
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
+  let warnings = "";
+  let entrar = false;
+  const regexName = /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]+$/;
+  const regexEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+  const regexPhone = /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/;
+  parrafo.innerHTML = "";
+
+  if (!regexName.test(nom.value)) {
+    warnings += `El nombre es invalido <br>`;
+    entrar = true;
+  }
+  if (!regexEmail.test(email.value)) {
+    warnings += `El email es invalido <br>`;
+    entrar = true;
+  }
+  if (!regexPhone.test(phon.value)) {
+    warnings += `El numero es invalido <strong>UTILIZAR CODIGO PAÍS CHILE +56XXXXXXXXX</strong> <br>`;
+    entrar = true;
+  }
+  if (entrar) {
+    parrafo.innerHTML = warnings;
+  }
+});
+
+// const expresiones = {
+//   usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+//   nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+//   password: /^.{4,12}$/, // 4 a 12 digitos.
+//   correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+//   telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+// }
