@@ -298,32 +298,41 @@ form p {
 }
 
 /* ESTILO TABLA */
-.tftable {
-  font-size:12px;
-  color:#333333;
-  width:100%;
-  border-width: 1px;
-  border-color: #a9a9a9;
-  border-collapse: collapse;
+table tr:nth-child(even) {
+  background-color: rgb(226, 226, 226);
 }
-.tftable th {font-size:12px;
-  background-color:#b8b8b8;
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #a9a9a9;
-  text-align:left;
+
+table tr:nth-child(odd) {
+  background-color: rgb(255, 255, 255);
 }
-.tftable tr {
-  background-color:#ffffff;
-}
-.tftable td {
-  font-size:12px;
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #a9a9a9;
-}
+
 .tftable tr:hover {
-  background-color:#ffff99;
+  background-color:rgb(168, 168, 168);
+}
+
+.tabletitle th {
+  background-color: #1f1f1f;
+  color: white;
+  height: 50px;
+}
+
+.tftable {
+  border: 1px;
+  color: black;
+  border: rgb(168, 168, 168) solid 2px;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+}
+
+td:first-child {
+  text-transform: uppercase;
+  font-weight: bold;
+  width: 100px;
+}
+
+td:nth-child(3){
+  font-style: italic;
 }
