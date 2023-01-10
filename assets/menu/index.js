@@ -174,3 +174,30 @@ switch (localStorage.getItem("languageActive")) {
     selectedEnglish.classList.add("langSelected");
     showEnglishText();
 }
+
+// Disponibilidad sessionStorage
+// if(typeof(Storage)!= "Undefined"){
+//   console.log("sessionStoage Disponible")
+// } else {
+//   console.log("Incompatible con sessionStoage")
+// }
+
+// Guardar Datos SessionStorage
+const miFunc = () =>{
+  const nom = document.querySelector(".nameInput").value;
+  console.log(nom)
+  const email = document.querySelector(".emailInput").value;
+  const comp = document.querySelector(".companyInput").value;
+  const phon = document.querySelector(".phoneInput").value;
+  const txta = document.querySelector(".textInput").value;
+  
+  sessionStorage.setItem("Name", nom)
+  sessionStorage.setItem("Email", email)
+  sessionStorage.setItem("Company", comp)
+  sessionStorage.setItem("Phone", phon)
+  sessionStorage.setItem("Message", txta)
+
+}
+
+
+
