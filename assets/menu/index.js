@@ -1,5 +1,36 @@
+// Funcion para menu Hamburguesa
+(function() {
+  if (document.querySelector("#top-nav-toggle")) {
+    var navToggle = document.querySelector("#top-nav-toggle");
 
+    function watchNavClose(e) {
+      var topNav = document.querySelector(".top-bar");
+      if (!e.path.includes(topNav)) {
+        openCloseNav();
+        document.documentElement.removeEventListener("click", watchNavClose);
+      }
+    }
 
+    function openCloseNav() {
+      var navToggle = document.querySelector("#top-nav-toggle");
+
+      if (!navToggle.classList.contains("closed")) {
+        navToggle.classList.add("closed");
+        document.querySelector("#top-bar__nav").classList.remove("collapsed");
+        document.querySelector("html").addEventListener("click", watchNavClose);
+      } else {
+        navToggle.classList.remove("closed");
+        document.querySelector("#top-bar__nav").classList.add("collapsed");
+        document.documentElement.removeEventListener("click", watchNavClose);
+      }
+    }
+
+    navToggle.addEventListener("click", openCloseNav);
+  }
+})();
+// Fin funcion menu Hamburguesa
+
+// Arreglo de Objeto del Menu
 const menuIndex = [
   {
 	Id: 1,
@@ -43,29 +74,103 @@ titulo: "Software",
 href: "software.php"
   }
 ]
+// Fin Arrelgo de Objeto del Menu
+
+// Ordenar arreglo para Menu
+const menuOrder = menuIndex.sort(((a, b) => a.Id - b.Id));
+const listaMenu = document.querySelector(".top-bar__nav-list");
+const li = document.createElement("li");
+
+menuOrder.map((titulo) =>{
+  const elem = document.createElement("a");
+  elem.appendChild(
+    document.createTextNode(`${titulo.titulo}`)
+  );
+  li.appendChild(elem);
+});
+
+listaMenu.appendChild(li);
+// Fin ordenar arreglo para Menu
 
 
 
-  const menuOrder = menuIndex.sort(((a, b) => a.Id - b.Id));
-  const listaMenu = document.querySelector("#app");
-  const ul = document.createElement("ul");
-  
-  
-  menuOrder.forEach((titulo) =>{
-    let elem = document.createElement("li");
-    elem.appendChild(
-      document.createTextNode(`${titulo.titulo}`)
-    );
-    ul.appendChild(elem);
-  });
+const selectedEnglish = document.getElementById("eng");
+const selectedEspanol = document.getElementById("esp");
+const hidden = "display:none;";
+const shown = "display:block;";
 
-listaMenu.appendChild(ul)
+const allEnglishText = document.getElementsByClassName("eng");
+const allEspanolText = document.getElementsByClassName("esp");
 
+//SHOW ALL ENGLISH TEXT
+function showEnglishText() {
+  for (element in allEnglishText) {
+    allEnglishText[element].style = shown;
+  }
+  for (element in allEspanolText) {
+    allEspanolText[element].style = hidden;
+  }
+}
+//SHOW ALL SPANISH TEXT
+function showSpanishText() {
+  for (element in allEnglishText) {
+    allEnglishText[element].style = hidden;
+  }
+  for (element in allEspanolText) {
+    allEspanolText[element].style = shown;
+  }
+}
 
+//ENGLISH-> ALL OTHERS SWITCHED OFF
+selectedEnglish.addEventListener("click", () => {
+  selectedEnglish.classList.add("langSelected");
+  selectedEspanol.classList.remove("langSelected");
 
-// const list = menuOrder.map( e =>{
-  //   e = e.titulo
-  // });
-  
-  // console.log(list)
-  
+  showEnglishText();
+});
+
+//SPANISH-> ALL OTHERS SWITCHED OFF
+selectedEspanol.addEventListener("click", () => {
+  selectedEspanol.classList.add("langSelected");
+  selectedEnglish.classList.remove("langSelected");
+
+  showSpanishText();
+});
+
+//ENGLISH-> ALL OTHERS SWITCHED OFF
+selectedEnglish.addEventListener("click", () => {
+  selectedEnglish.classList.add("langSelected");
+  selectedEspanol.classList.remove("langSelected");
+
+  showEnglishText();
+  localStorage.setItem("languageActive", "english");
+});
+ 
+//SPANISH-> ALL OTHERS SWITCHED OFF
+selectedEspanol.addEventListener("click", () => {
+  selectedEspanol.classList.add("langSelected");
+  selectedEnglish.classList.remove("langSelected");
+
+  showSpanishText();
+  localStorage.setItem("languageActive", "espanol");
+});
+
+//LOCAL STORAGE ADDON
+switch (localStorage.getItem("languageActive")) {
+ 
+  case "english":
+    selectedEnglish.classList.add("langSelected");
+    showEnglishText();
+    break;
+
+  case "espanol":
+    selectedEspanol.classList.add("langSelected");
+    showSpanishText();
+    break;
+
+  default:
+    //default ENGLISH text shown, all others disabled
+//default -> no local storage exists
+    selectedEnglish.classList.add("langSelected");
+    showEnglishText();
+}
