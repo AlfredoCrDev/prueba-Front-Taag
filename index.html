@@ -24,64 +24,53 @@
     </header>
 
   <div class="languageContainer">
-    <div id="eng" class="languages english"><a>english</a></div>
-    <div id="esp" class="languages spain"><p>español</p></div>
+    <div id="eng" class="languages english"><a onclick="limpiarFormulario()">english</a></div>
+    <div id="esp" class="languages spain"><a onclick="limpiarFormulario()">español</a></div>
   </div>
 
     <div class="container">
       <div class="form-container">
         <div class="left-container">
-          <div class="left-inner-container eng">
-            <p>
+          <div class="left-inner-container">
+            <p class="eng">
               Let's coordinate a meeting to find the best solution for your needs.
               Are you ready to maximize your COVID-19 operation?
             </p>
-            <br />
-            <p>Get in touch, we're all ears</p>
-          </div>
-          <div class="left-inner-container esp">
-            <p>
+            <p class="esp">
               Coordinemos una reunión para encontrar la mejor solución para sus necesidades.
               ¿Estás listo para maximizar tu operación COVID-19?.
             </p>
             <br />
-            <p>Contáctanos y comencemos</p>
-          </div>
+            <p class="eng">Get in touch, we're all ears</p>
+            <p class="esp">Contáctanos y comencemos</p>
         </div>
+      </div>
 
-          <div class="right-inner-container eng">
+      <div class="right-container">
+          <div class="right-inner-container">
             <form action="#" method="post" class="formcontact">
-              <h2 class="lg-view">Contact Us</h2>
-              <h2 class="sm-view">Let's Chat</h2>
-              <p>* Required</p>
-              <input type="text" class = "nameInput" placeholder="Name *" />
-              <input class = "emailInput" type="email" placeholder="Email *" />
-              <input class = "companyInput" type="text" placeholder="Company" />
-              <input class = "phoneInput" type="phone" placeholder="Phone *" />
-              <textarea class = "textInput" rows="4" placeholder="Message"></textarea>
-              <button type="submit" onclick="miFunc()">Submit</button>
+              <h2 class="lg-view eng">Contact Us</h2>
+              <h2 class="lg-view esp">Contactanos</h2>
+              <p class="eng">* Required</p>
+              <p class="esp">* Requirido</p>
+              <input type="text" class = "nameInput eng" placeholder="Name *" />
+              <input type="text" class = "nameInput esp" placeholder="Nombre *" />
+              <input class = "emailInput eng" type="email" placeholder="Email *" />
+              <input class = "emailInput esp" type="email" placeholder="Correo *" />
+              <input class = "companyInput eng" type="text" placeholder="Company" />
+              <input class = "companyInput esp" type="text" placeholder="Empresa" />
+              <input class = "phoneInput eng" type="phone" placeholder="Phone *" />
+              <input class = "phoneInput esp" type="phone" placeholder="Teléfono *" />
+              <textarea class = "textInput eng" rows="4" placeholder="Message"></textarea>
+              <textarea class = "textInput esp" rows="4" placeholder="Mensaje"></textarea>
+              <button type="submit" class = "eng" onclick="todos()">Submit</button>
+              <button type="submit" class = "esp" onclick="todos()">Enviar</button>
             </form>
-            <div class="parrafo"></div>
-          </div>
-
-          <div class="right-inner-container esp">
-            <form action="#" method="post" class="formcontact2">
-              <h2 class="lg-view">Contactanos</h2>
-              <h2 class="sm-view">Vamos</h2>
-              <p>* Requirido</p>
-              <input class = "nameInput" type="text" placeholder="Nombre *" />
-              <input class = "emailInput" type="email" placeholder="Correo *" />
-              <input class = "companyInput" type="text" placeholder="Empresa" />
-              <input class = "phoneInput" type="phone" placeholder="Teléfono *" />
-              <textarea class = "textInput" rows="4" placeholder="Mensaje"></textarea>
-              <button type="submit" onclick="miFunc()">Enviar</button>
-            </form>
-            <div class="parrafo2"></div>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="parrafo"></div>
     <div id="app"></div>
 
     <script src="./assets/menu/index.js"></script>

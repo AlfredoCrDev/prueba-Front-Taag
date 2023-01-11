@@ -91,6 +91,8 @@ menuOrder.map((titulo) => {
 listaMenu.appendChild(li);
 // Fin ordenar arreglo para Menu
 
+
+//SELECTORES DE CAMBIO DE IDIOMA
 const selectedEnglish = document.getElementById("eng");
 const selectedEspanol = document.getElementById("esp");
 const hidden = "display:none;";
@@ -98,6 +100,13 @@ const shown = "display:block;";
 
 const allEnglishText = document.getElementsByClassName("eng");
 const allEspanolText = document.getElementsByClassName("esp");
+
+function limpiarFormulario() {
+  document.querySelector(".formcontact").reset();
+  const parrafo = document.querySelector(".parrafo");
+  parrafo.innerHTML = "";
+  sessionStorage.clear();
+}
 
 //SHOW ALL ENGLISH TEXT
 function showEnglishText() {
@@ -155,7 +164,7 @@ switch (localStorage.getItem("languageActive")) {
     showEnglishText();
     break;
 
-  case "spain":
+  case "espanol":
     selectedEspanol.classList.add("langSelected");
     showSpanishText();
     break;
@@ -175,6 +184,10 @@ switch (localStorage.getItem("languageActive")) {
 // }
 
 // Guardar Datos SessionStorage
+const todos = () =>{
+  miFunc();
+  formValidacion();
+}
 const miFunc = () => {
   const nom = document.querySelector(".nameInput").value;
   const email = document.querySelector(".emailInput").value;
@@ -186,21 +199,18 @@ const miFunc = () => {
 };
 
 // VALIDACION DE FOMRULARIO
-const form = document.querySelector(".formcontact");
-const form2 = document.querySelector(".formcontact2");
-const nom = document.querySelector(".nameInput");
-const email = document.querySelector(".emailInput");
-const phon = document.querySelector(".phoneInput");
-const parrafo = document.querySelector(".parrafo");
-const parrafo2 = document.querySelector(".parrafo2");
-
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
+const formValidacion = ()=> {
+  const form = document.querySelector(".formcontact");
+  const nom = document.querySelector(".nameInput");
+  const email = document.querySelector(".emailInput");
+  const phon = document.querySelector(".phoneInput");
+  const parrafo = document.querySelector(".parrafo");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
   let warnings = "";
   let entrar = false;
-  const regexName = /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]+$/;
+  const regexName = /^[a-zA-ZÀ-ÿ\s]{4,40}$/;
   const regexEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
   const regexPhone = /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/;
   parrafo.innerHTML = "";
@@ -221,33 +231,7 @@ form.addEventListener("submit", (e) => {
     parrafo.innerHTML = warnings;
   }
 });
-
-form2.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  let warnings = "";
-  let entrar = false;
-  const regexName = /^[A-ZÑa-zñáéíóúÁÉÍÓÚ'° ]+$/;
-  const regexEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-  const regexPhone = /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/;
-  parrafo.innerHTML = "";
-
-  if (!regexName.test(nom.value)) {
-    warnings += `El nombre es invalido <br>`;
-    entrar = true;
-  }
-  if (!regexEmail.test(email.value)) {
-    warnings += `El email es invalido <br>`;
-    entrar = true;
-  }
-  if (!regexPhone.test(phon.value)) {
-    warnings += `El numero es invalido <strong>UTILIZAR CODIGO PAÍS CHILE +56XXXXXXXXX</strong> <br>`;
-    entrar = true;
-  }
-  if (entrar) {
-    parrafo.innerHTML = warnings;
-  }
-});
+}
 
 
 // const expresiones = {
